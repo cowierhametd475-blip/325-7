@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>81digital-ex | Global Financial Information Consulting</title>
+    <style>
+        /* Global Color Variables */
+        :root {
+            --primary: #1D4ED8;
+            --secondary: #DC2626;
+            --accent: #059669;
+            --bg-orange: #D97706;
+            --text-light: #F1F5F9;
+            --nav-dark: #111827;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+        }
+        body {
+            background: #fff;
+            color: var(--nav-dark);
+            overflow-x: hidden;
+        }
+        a {
+            text-decoration: none;
+        }
+        ul {
+            list-style: none;
+        }
+        button, input, textarea {
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        /* Floating Side Ads Left & Right */
+        .side-ad {
+            position: fixed;
+            top: 30%;
+            width: 160px;
+            background: linear-gradient(145deg, var(--primary), var(--accent));
+            border-radius: 10px;
+            padding: 15px;
+            color: var(--text-light);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            z-index: 998;
+            cursor: move;
+        }
+        .ad-left {
+            left: 10px;
+        }
+        .ad-right {
+            right: 10px;
+        }
+        .ad-close {
+            position: absolute;
+            top: 6px;
+            right: 8px;
+            background: var(--secondary);
+            border: none;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .ad-img {
+            width: 100%;
+            border-radius: 6px;
+            margin: 8px 0;
+        }
+        .side-ad h4 {
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+        .side-ad p {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        /* Navigation Header */
+        header {
+            background: var(--nav-dark);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        .logo {
+            padding: 14px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo h1 {
+            color: var(--text-light);
+            font-size: 22px;
+        }
+        .logo span {
+            color: var(--bg-orange);
+        }
+        .logo-img {
+            height: 40px;
+            border-radius: 4px;
+        }
+        .desktop-menu {
+            display: flex;
+            gap: 32px;
+        }
+        .desktop-menu li a {
+            color: var(--text-light);
+            font-size: 15px;
+            padding: 20px 0;
+            display: inline-block;
+            position: relative;
+            transition: 0.3s ease;
+        }
+        .desktop-menu li a:hover {
+            color: var(--bg-orange);
+        }
+        .desktop-menu li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--bg-orange);
+            transition: width 0.3s;
+        }
+        .desktop-menu li a:hover::after {
+            width: 100%;
+        }
+        .mobile-menu-btn {
+            display: none;
+            background: transparent;
+            border: none;
+            color: var(--text-light);
+            font-size: 28px;
+            padding: 10px;
+        }
+        .mobile-menu {
+            display: none;
+            width: 100%;
+            background: var(--nav-dark);
+            padding: 10px 20px;
+            border-top: 1px solid #222;
+        }
+        .mobile-menu li {
+            margin: 12px 0;
+        }
+        .mobile-menu li a {
+            color: var(--text-light);
+            font-size: 16px;
+            display: block;
+            padding: 8px 0;
+        }
+        .mobile-menu li a:hover {
+            color: var(--bg-orange);
+        }
+
+        /* Page Section Base Style - All Sub Pages Hidden By Default */
+        .page-section {
+            display: none;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            min-height: calc(100vh - 82px);
+        }
+        .page-section.active {
+            display: block;
+        }
+        .section-title {
+            font-size: 36px;
+            color: var(--primary);
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        .section-subtitle {
+            text-align: center;
+            color: #555;
+            font-size: 17px;
+            margin-bottom: 50px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Hero Home Section */
+        #home {
+            padding: 0;
+        }
+        .hero-banner {
+            width: 100%;
+            height: 85vh;
+            background: linear-gradient(rgba(17,24,39,0.75), rgba(29,78,216,0.7)), url('https://cowierhametd475-blip.github.io/325-7/99.jpg') center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--text-light);
+            padding: 0 20px;
+        }
+        .hero-banner h2 {
+            font-size: 52px;
+            margin-bottom: 20px;
+        }
+        .hero-banner p {
+            font-size: 20px;
+            max-width: 900px;
+            margin-bottom: 35px;
+            line-height: 1.7;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .btn {
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #153fb9;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(29,78,216,0.3);
+        }
+        .btn-accent {
+            background: var(--accent);
+            color: white;
+        }
+        .btn-accent:hover {
+            background: #047e58;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(5,150,105,0.3);
+        }
+        .home-gallery {
+            padding: 70px 20px;
+            background: #f8fafc;
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+        }
+        .gallery-card {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            background: white;
+        }
+        .gallery-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+        .gallery-card .card-text {
+            padding: 18px;
+        }
+        .gallery-card h3 {
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+        .gallery-card p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* About Us Page */
+        .about-wrap {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        .about-img-block img {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 5px 25px rgba(29,78,216,0.15);
+        }
+        .about-text h3 {
+            color: var(--primary);
+            font-size: 26px;
+            margin-bottom: 18px;
+        }
+        .about-text p {
+            line-height: 1.8;
+            color: #444;
+            margin-bottom: 16px;
+            font-size: 16px;
+        }
+        .feature-list {
+            margin-top: 30px;
+        }
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+        .feature-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
+        /* Services Page */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .service-card {
+            background: white;
+            padding: 35px 25px;
+            border-radius: 14px;
+            border-top: 6px solid var(--primary);
+            box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+        .service-card:hover {
+            transform: translateY(-8px);
+        }
+        .service-card h3 {
+            color: var(--primary);
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+        .service-card p {
+            color: #555;
+            line-height: 1.7;
+        }
+        .service-card .tag {
+            display: inline-block;
+            margin-top: 16px;
+            padding: 5px 12px;
+            background: rgba(29,78,216,0.1);
+            color: var(--primary);
+            border-radius: 30px;
+            font-size: 13px;
+        }
+
+        /* Contact Page & Form */
+        .contact-wrap {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+        .contact-info h3 {
+            color: var(--primary);
+            font-size: 24px;
+            margin-bottom: 22px;
+        }
+        .contact-item {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        .contact-item h4 {
+            color: var(--nav-dark);
+            margin-bottom: 6px;
+            font-size: 17px;
+        }
+        .contact-item p {
+            color: #555;
+            font-size: 16px;
+        }
+        .contact-form {
+            background: #f8fafc;
+            padding: 35px;
+            border-radius: 14px;
+        }
+        .form-group {
+            margin-bottom: 22px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--nav-dark);
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+        .form-group textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+        .submit-msg {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            display: none;
+        }
+        .success-msg {
+            background: rgba(5,150,105,0.12);
+            color: var(--accent);
+            border: 1px solid var(--accent);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--nav-dark);
+            color: var(--text-light);
+            padding: 40px 20px;
+            text-align: center;
+        }
+        footer p {
+            opacity: 0.8;
+            font-size: 14px;
+        }
+
+        /* Mobile Responsive */
+        @media(max-width: 992px) {
+            .about-wrap, .contact-wrap {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media(max-width: 768px) {
+            .desktop-menu {
+                display: none;
+            }
+            .mobile-menu-btn {
+                display: block;
+            }
+            .hero-banner h2 {
+                font-size: 34px;
+            }
+            .hero-banner p {
+                font-size: 16px;
+            }
+            .section-title {
+                font-size: 28px;
+            }
+            .side-ad {
+                width: 130px;
+            }
+            .ad-left {
+                left: 4px;
+            }
+            .ad-right {
+                right: 4px;
+            }
+        }
+        @media(max-width: 480px) {
+            .hero-buttons {
+                flex-direction: column;
+            }
+            .btn {
+                width: 100%;
+            }
+            .side-ad {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Left Floating Draggable Ad -->
+    <div class="side-ad ad-left" id="adLeft">
+        <button class="ad-close" onclick="closeAd('adLeft')">×</button>
+        <h4>Premium Financial Report</h4>
+        <img class="ad-img" src="https://cowierhametd475-blip.github.io/325-7/100.jpg" alt="Finance Ad">
+        <p>Global market analysis for investors</p>
+    </div>
+    <!-- Right Floating Draggable Ad -->
+    <div class="side-ad ad-right" id="adRight">
+        <button class="ad-close" onclick="closeAd('adRight')">×</button>
+        <h4>1-on-1 Consultancy</h4>
+        <img class="ad-img" src="https://cowierhametd475-blip.github.io/325-7/101.jpg" alt="Consult Ad">
+        <p>UK & European financial strategy support</p>
+    </div>
+
+    <!-- Navigation Header -->
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <img class="logo-img" src="https://cowierhametd475-blip.github.io/325-7/1.jpg" alt="81digital-ex Logo">
+                <h1>81digital-<span>ex</span></h1>
+            </div>
+            <ul class="desktop-menu">
+                <li><a href="#home" onclick="switchPage('home')">Home</a></li>
+                <li><a href="#about" onclick="switchPage('about')">About Us</a></li>
+                <li><a href="#services" onclick="switchPage('services')">Our Services</a></li>
+                <li><a href="#contact" onclick="switchPage('contact')">Contact Us</a></li>
+            </ul>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+        </div>
+        <ul class="mobile-menu" id="mobileMenu">
+            <li><a href="#home" onclick="switchPage('home'); toggleMobileMenu();">Home</a></li>
+            <li><a href="#about" onclick="switchPage('about'); toggleMobileMenu();">About Us</a></li>
+            <li><a href="#services" onclick="switchPage('services'); toggleMobileMenu();">Our Services</a></li>
+            <li><a href="#contact" onclick="switchPage('contact'); toggleMobileMenu();">Contact Us</a></li>
+        </ul>
+    </header>
+
+    <!-- Page Sections -->
+    <!-- Home Page -->
+    <section id="home" class="page-section active">
+        <div class="hero-banner">
+            <h2>81digital-ex Global Financial Consulting</h2>
+            <p>Professional cross-border financial information analysis, asset allocation consulting, market trend research and investment risk control services based in St Albans, England.</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary" onclick="switchPage('services')">View Our Services</button>
+                <button class="btn btn-accent" onclick="switchPage('contact')">Get In Touch</button>
+            </div>
+        </div>
+        <div class="home-gallery">
+            <h2 class="section-title">Our Core Business Scenarios</h2>
+            <p class="section-subtitle">We deliver comprehensive financial data consulting solutions for institutions and individual investors across Europe</p>
+            <div class="gallery-grid">
+                <div class="gallery-card">
+                    <img src="https://cowierhametd475-blip.github.io/325-7/2.jpg" alt="Market Research">
+                    <div class="card-text">
+                        <h3>Global Market Research</h3>
+                        <p>Real-time macroeconomic data tracking, stock, foreign exchange and commodity trend interpretation reports.</p>
+                    </div>
+                </div>
+                <div class="gallery-card">
+                    <img src="https://cowierhametd475-blip.github.io/325-7/3.jpg" alt="Asset Consulting">
+                    <div class="card-text">
+                        <h3>Personal Asset Allocation</h3>
+                        <p>Customized wealth management plans matching risk tolerance, long-term value investment guidance.</p>
+                    </div>
+                </div>
+                <div class="gallery-card">
+                    <img src="https://cowierhametd475-blip.github.io/325-7/4.jpg" alt="Corporate Finance">
+                    <div class="card-text">
+                        <h3>Enterprise Financial Advisory</h3>
+                        <p>Cross-border capital flow analysis, financial statement review and international tax consultation support.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Page -->
+    <section id="about" class="page-section">
+        <h2 class="section-title">About 81digital-ex</h2>
+        <p class="section-subtitle">A trusted local UK financial information consulting firm serving global clients</p>
+        <div class="about-wrap">
+            <div class="about-img-block">
+                <img src="https://cowierhametd475-blip.github.io/325-7/5.jpg" alt="Company Office">
+            </div>
+            <div class="about-text">
+                <h3>Our Company Profile</h3>
+                <p>81digital-ex is a professional financial information consulting enterprise registered in St Albans, England. We focus on providing objective, data-backed financial analysis services to individual investors, small financial institutions and cross-border enterprises throughout Europe.</p>
+                <p>Our team consists of senior financial analysts, market risk specialists and international asset management consultants with decades of combined experience in global capital markets. We strictly adhere to UK financial service compliance standards to deliver transparent, reliable consulting output.</p>
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <span class="feature-dot"></span>
+                        <span>Local UK registered business with physical office in St Albans</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-dot"></span>
+                        <span>Multi-language financial research & one-on-one consultancy</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-dot"></span>
+                        <span>Real-time global financial database access & customized reports</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-dot"></span>
+                        <span>Full-cycle risk assessment for investment portfolios</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Services Page -->
+    <section id="services" class="page-section">
+        <h2 class="section-title">Our Financial Consulting Services</h2>
+        <p class="section-subtitle">Full-spectrum financial information and advisory solutions tailored for different client demands</p>
+        <div class="services-grid">
+            <div class="service-card">
+                <h3>Global Market Trend Analysis</h3>
+                <p>Daily, weekly and monthly comprehensive market reports covering equities, forex, crypto, bonds and commodity markets. Includes macro policy interpretation and sentiment index tracking.</p>
+                <span class="tag">Data Research</span>
+            </div>
+            <div class="service-card">
+                <h3>Personal Investment Consulting</h3>
+                <p>Risk tolerance evaluation, diversified asset portfolio design, regular performance review and adjustment suggestions for retail investors worldwide.</p>
+                <span class="tag">Retail Investor Service</span>
+            </div>
+            <div class="service-card">
+                <h3>Enterprise Cross-Border Finance</h3>
+                <p>Overseas capital allocation planning, foreign exchange risk hedging advice, international trade financial data analysis and compliance guidance for UK/EU companies.</p>
+                <span class="tag">Corporate Advisory</span>
+            </div>
+            <div class="service-card">
+                <h3>Financial Risk Control Audit</h3>
+                <p>Independent third-party risk assessment for investment funds, position loss warning models and long-term portfolio stability optimization schemes.</p>
+                <span class="tag">Risk Management</span>
+            </div>
+            <div class="service-card">
+                <h3>Custom Data Report Customization</h3>
+                <p>On-demand exclusive financial research reports according to client industry, investment scope and data depth requirements, delivered via email or online dashboard.</p>
+                <span class="tag">Custom Research</span>
+            </div>
+            <div class="service-card">
+                <h3>One-on-One Expert Consultation</h3>
+                <p>Video or offline appointment consulting with senior financial analysts, targeted solving of personal and corporate financial confusion.</p>
+                <span class="tag">VIP Consultancy</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Us Page -->
+    <section id="contact" class="page-section">
+        <h2 class="section-title">Contact Us</h2>
+        <p class="section-subtitle">Reach out for business cooperation, consultation appointments and service inquiries</p>
+        <div class="contact-wrap">
+            <div class="contact-info">
+                <h3>Company Contact Details</h3>
+                <div class="contact-item">
+                    <h4>Office Address</h4>
+                    <p>95 Haseldine Rd, St Albans, England</p>
+                </div>
+                <div class="contact-item">
+                    <h4>Phone Number</h4>
+                    <p>+44 7532662153</p>
+                </div>
+                <div class="contact-item">
+                    <h4>Business Hours</h4>
+                    <p>Monday - Friday: 09:00 - 18:00 GMT<br>Saturday: 10:00 - 14:00 GMT<br>Sunday & UK Public Holidays: Closed</p>
+                </div>
+                <div class="contact-item">
+                    <h4>Service Scope</h4>
+                    <p>Global financial information consulting, investment strategy planning, corporate cross-border finance advisory & risk analysis</p>
+                </div>
+            </div>
+            <div class="contact-form">
+                <form id="contactForm" onsubmit="handleSubmit(event)">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" required placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" required placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Inquiry Subject</label>
+                        <input type="text" id="subject" required placeholder="e.g. Corporate consulting cooperation">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Your Message</label>
+                        <textarea id="message" required placeholder="Describe your consulting demand or cooperation intention..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width:100%">Submit Inquiry</button>
+                    <div id="successNotice" class="submit-msg success-msg">
+                        Your information has been submitted successfully! Our consultant will contact you within 24 working hours.
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 81digital-ex All Rights Reserved | Financial Information Consulting Service Provider Based in St Albans, UK</p>
+    </footer>
+
+    <script>
+        // Page Switch Logic
+        function switchPage(pageId) {
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.style.display = mobileMenu.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // Close Floating Advertisement
+        function closeAd(adId) {
+            document.getElementById(adId).style.display = 'none';
+        }
+
+        // Draggable Side Ads
+        function makeDraggable(element) {
+            let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            element.onmousedown = dragMouseDown;
+            function dragMouseDown(e) {
+                e.preventDefault();
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                document.onmousemove = elementDrag;
+            }
+            function elementDrag(e) {
+                e.preventDefault();
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                element.style.top = (element.offsetTop - pos2) + "px";
+                element.style.left = (element.offsetLeft - pos1) + "px";
+                element.style.right = "auto";
+            }
+            function closeDragElement() {
+                document.onmouseup = null;
+                document.onmousemove = null;
+            }
+        }
+        makeDraggable(document.getElementById('adLeft'));
+        makeDraggable(document.getElementById('adRight'));
+
+        // Contact Form Submit - Always Return Success
+        function handleSubmit(e) {
+            e.preventDefault();
+            document.getElementById('successNotice').style.display = 'block';
+            document.getElementById('contactForm').reset();
+            setTimeout(() => {
+                document.getElementById('successNotice').style.display = 'none';
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
